@@ -324,7 +324,7 @@ try{
                     if( $null -ne $main_monitor ){
                         $bright_cur = [int]$main_monitor.CurrentBrightness
                         if( $bright_cur -ne $bright_prev ){
-                            $bright_new  = [uint][Math]::Floor( $bright_cur / 2 )
+                            $bright_new  = [uint32][Math]::Floor( $bright_cur / 2 )
 
                             $result = 0;
                             foreach( $devid in $monitors ){
