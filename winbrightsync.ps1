@@ -109,7 +109,7 @@ public class DdcMonitor
         public int    Flags;
     }
 
-    private Dictionary<string, DdcMonitorInfo> pm_monitors = new();
+    private Dictionary<string, DdcMonitorInfo> pm_monitors = new Dictionary<string, DdcMonitorInfo>();
 
     private void _destroy_monitors( Dictionary<string, DdcMonitorInfo> mons )
     {
@@ -163,11 +163,11 @@ public class DdcMonitor
 
     public uint UpdateMonitors()
     {
-        Dictionary<string, DdcMonitorInfo> mils = new();
+        Dictionary<string, DdcMonitorInfo> mils = new Dictionary<string, DdcMonitorInfo>();
         bool update = false;
 
         update = EnumDisplayMonitors( IntPtr.Zero, IntPtr.Zero, ( hMonitor, hdc, rect, data ) => {
-            DdcMonitorInfo mi = new();
+            DdcMonitorInfo mi = new DdcMonitorInfo();
             uint cnt;
             if( ! GetNumberOfPhysicalMonitorsFromHMONITOR( hMonitor, out cnt ) || cnt == 0 )
                 return true;
@@ -232,7 +232,7 @@ public class DdcMonitor
     public void DestroyMonitors()
     {
         _destroy_monitors( pm_monitors );
-        pm_monitors = new();
+        pm_monitors = new Dictionary<string, DdcMonitorInfo>();
     }
 
     public int SetBrightness( string devid, uint target )
